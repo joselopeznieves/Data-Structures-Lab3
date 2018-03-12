@@ -7,7 +7,11 @@ public class DLDHDTList<E> extends AbstractDLList<E> {
 	private int length; 
 	
 	public DLDHDTList() { 
-		// ADD CODE HERE to generate empty linked list of this type 
+		header = new DNode<>();
+		trailer = new DNode<>();
+		header.setNext(trailer);
+		trailer.setPrev(header);
+		length = 0;
 	}
 	
 	public void addFirstNode(Node<E> nuevo) {
