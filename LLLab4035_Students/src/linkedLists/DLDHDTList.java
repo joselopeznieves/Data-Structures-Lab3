@@ -40,7 +40,14 @@ public class DLDHDTList<E> extends AbstractDLList<E> {
 	}
 
 	public void addNodeBefore(Node<E> target, Node<E> nuevo) {
-		// ADD CODE HERE
+		DNode<E> dnuevo = (DNode<E>) nuevo; 
+		DNode<E> nTarget = (DNode<E>) target; 
+		DNode<E> nBefore = nTarget.getPrev(); 
+		nTarget.setPrev(dnuevo); 
+		nBefore.setNext(dnuevo); 
+		dnuevo.setPrev(nBefore); 
+		dnuevo.setNext(nTarget); 
+		length++; 
 	}
 
 	public Node<E> createNewNode() {
@@ -61,14 +68,18 @@ public class DLDHDTList<E> extends AbstractDLList<E> {
 
 	public Node<E> getNodeAfter(Node<E> target)
 			throws NoSuchElementException {
-		// ADD CODE HERE AND MODIFY RETURN ACCORDINGLY
-		return null; 
+		DNode<E> nTarget = (DNode<E>) target; 
+		if(nTarget.getNext() == trailer) throw new NoSuchElementException("There is no node after");
+		
+		return nTarget.getNext(); 
 	}
 
 	public Node<E> getNodeBefore(Node<E> target)
 			throws NoSuchElementException {
-		// ADD CODE HERE AND MODIFY RETURN ACCORDINGLY
-		return null; 
+		DNode<E> nTarget = (DNode<E>) target; 
+		if(nTarget.getPrev() == header) throw new NoSuchElementException("There is no node before");
+		
+		return nTarget.getPrev(); 
 	}
 
 	public int length() {
@@ -76,7 +87,15 @@ public class DLDHDTList<E> extends AbstractDLList<E> {
 	}
 
 	public void removeNode(Node<E> target) {
-		// ADD CODE HERE to disconnect target from the linked list, reduce lent, clean target...
+		DNode<E> nTarget = (DNode<E>) target; 
+		DNode<E> nBefore = nTarget.getPrev(); 
+		DNode<E> nAfter = nTarget.getNext(); 
+		
+		nBefore.setNext(nAfter);
+		nAfter.setPrev(nBefore);
+		
+		nTarget.clean();
+		length--;
 	}
 	
 	/**
@@ -101,7 +120,12 @@ public class DLDHDTList<E> extends AbstractDLList<E> {
 	 * doubly linked list with dummy header and dummy trailer nodes. 
 	 */
 	public void makeEmpty() { 
-		// TODO
+		DNode<E> node = (DNode<E>) header.getNext();
+		while(node != trailer) {
+			this.removeNode(node);
+			node = header.getNext();
+		}
+		length = 0;
 	}
 		
 	protected void finalize() throws Throwable {
