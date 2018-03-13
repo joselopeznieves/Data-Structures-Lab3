@@ -2,6 +2,15 @@ package linkedLists;
 
 import java.util.NoSuchElementException;
 
+/** Clonable problem: 
+ * It would not suffice to add an intermediate AbstractLinkedList class
+ * since at that level, there is not enough information on how the
+ * lists are implemented. SLL and DLL are implemented differently 
+ * and they deal with nodes differently. In order to properly 
+ * implement a clone method, the method would need to know 
+ * how are the internal nodes of each class handled.  
+ * **/ 
+
 public interface LinkedList<E> {
 	
 	/**

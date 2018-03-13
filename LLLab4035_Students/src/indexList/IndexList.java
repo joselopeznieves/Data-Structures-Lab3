@@ -1,5 +1,8 @@
 package indexList;
 
+
+
+
 public interface IndexList<E> {
     /**
      * Gets the size of the index list (number of elements).
